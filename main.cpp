@@ -1,44 +1,75 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 size_t menu();
+size_t open_file(string filename, vector<string> &liststrings);
+size_t search();
+size_t remove();
+size_t remove_duplicates();
+size_t statistics();
 
 int main()
 {
     size_t option = 0;
+    vector<string> liststrings;                       // ve tor que concatena cada file add
+    vector<pair<string, vector<string>>> listoffiles; // vetor com o nome dos arquivos e seu vetor de palavras
 
     do
     {
         option = menu();
-        switch (option)
+        if (option == 1)
         {
-        case 1:
-
+            string filename;
+            cout << "1. Open a File" << endl
+                 << "Digite o nome do arquivo que deseja abrir: " << endl;
+            cin >> filename;
+            open_file(filename, liststrings);
             continue;
-
-        case 2:
+        }
+        if (option == 2)
+        {
+            cout << "2. Search for Substrings" << endl;
+            // search();
             continue;
-
-        case 3:
-
+        }
+        if (option == 3)
+        {
+            cout << "3. Remove Words Containing a Substring" << endl;
+            remove();
             continue;
-
-        case 4:
-
+        }
+        if (option == 4)
+        {
+            cout << "4. Remove all Repeated Words" << endl;
+            remove_duplicates();
             continue;
+        }
+        if (option == 5)
+        {
+            cout << "5. Show Statistics" << endl;
 
-        case 5:
+            cout << "list:" << endl;
+            for (size_t i = 0; i < liststrings.size(); i++)
+            {
+                cout << "string " << i << " - " << liststrings.at(i) << endl;
+            }
 
+            statistics();
             continue;
-
-        case 6:
-
+        }
+        if (option == 6)
+        {
+            cout << "6. Exit" << endl;
             break;
-
-        default:
+        }
+        if (option != 1 || option != 2 || option != 3 || option != 4 || option != 5 || option != 6)
+        {
             cout << "Please chose a valid number" << endl;
             continue;
         }
@@ -52,9 +83,8 @@ size_t menu()
 
     cout << "-------------------------------------------------" << endl
          << "FILE MANIPULATOR HACK" << endl
-         << "Select an option:" << endl
-         << "1. Open a File..." << endl
-         << "2. Search for Substrings..." << endl
+         << "1. Open a File" << endl
+         << "2. Search for Substrings" << endl
          << "3. Remove Words Containing a Substring" << endl
          << "4. Remove all Repeated Words" << endl
          << "5. Show Statistics" << endl
@@ -64,4 +94,54 @@ size_t menu()
     cin >> option;
 
     return option;
+}
+
+size_t open_file(string filename, vector<string> &liststrings)
+{
+    ifstream infile(filename); // abre o arquivo em questão para pegar as strings
+    infile.open(filename);
+
+    vector<string> newfile;
+
+    if (infile.is_open())
+    {
+        string line;
+        while (getline(infile, line))
+        {
+            istringstream ss_line(line);
+            while (ss_line)
+            {
+                string element;
+                ss_line >> element;
+                if (element == " ")
+                {
+                    cin.ignore();
+                }
+                else
+                {
+                    liststrings.push_back(element);
+                }
+            }
+        }
+
+        infile.close(); // fecha o arquivo
+    }
+    return 0;
+}
+
+size_t search()
+{
+    return 0;
+}
+size_t remove()
+{
+    return 0;
+}
+size_t remove_duplicates()
+{
+    return 0;
+}
+size_t statistics()
+{
+    return 0;
 }
