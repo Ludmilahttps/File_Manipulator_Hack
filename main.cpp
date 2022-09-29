@@ -9,8 +9,7 @@ using namespace std;
 
 size_t menu();
 size_t open_file(string filename, vector<string> &liststrings);
-size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search);
-size_t remove();
+size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search, size_t option);
 size_t remove_duplicates();
 size_t statistics();
 
@@ -45,18 +44,22 @@ int main()
         {
             cout << "2. Search for Substrings" << endl;
             cout << "Enter a Substring to Search: " << endl;
-
             string search;
             cin >> search;
 
-            search_substring(ListOfFiles, search);
+            search_substring(ListOfFiles, search, option);
 
             continue;
         }
         if (option == 3)
         {
             cout << "3. Remove Words Containing a Substring" << endl;
-            remove();
+            cout << "Enter a Substring to remove: " << endl;
+
+            string remove;
+            cin >> remove;
+
+            search_substring(ListOfFiles, remove, option);
             continue;
         }
         if (option == 4)
@@ -136,7 +139,7 @@ size_t open_file(string filename, vector<string> &liststrings)
     return 0;
 }
 
-size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search)
+size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search, size_t option)
 {
     bool find = false; // variável que avisa se alguma substring foi encontrada
 
@@ -147,7 +150,15 @@ size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, strin
             if (ListOfFiles.at(i).second.at(j).find(search) != string::npos)
             {
                 find = true;
-                cout << ListOfFiles.at(i).first << " has substring " << ListOfFiles.at(i).second.at(j) << endl;
+                if (option == 2)
+                {
+                    cout << ListOfFiles.at(i).first << " has substring " << ListOfFiles.at(i).second.at(j) << endl;
+                }
+                if (option == 3)
+                {
+                    cout << "Removing " << ListOfFiles.at(i).second.at(j) << " located in file " << ListOfFiles.at(i).first << endl;
+                    ListOfFiles.at(i).second.at(j).erase();
+                }
             }
         }
     }
@@ -159,10 +170,6 @@ size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, strin
     return 0;
 }
 
-size_t remove()
-{
-    return 0;
-}
 size_t remove_duplicates()
 {
     return 0;
