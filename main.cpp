@@ -9,7 +9,7 @@ using namespace std;
 
 size_t menu();
 size_t open_file(string filename, vector<string> &liststrings);
-size_t search();
+size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search);
 size_t remove();
 size_t remove_duplicates();
 size_t statistics();
@@ -17,8 +17,9 @@ size_t statistics();
 int main()
 {
     size_t option = 0;
-    vector<string> liststrings;                       // ve tor que concatena cada file add
-    vector<pair<string, vector<string>>> listoffiles; // vetor com o nome dos arquivos e seu vetor de palavras
+    vector<string> liststrings;                       // vetor auxiliar que armazena
+    pair<string, vector<string>> file;                // pair com o nome do arquivo e vetor de palavras
+    vector<pair<string, vector<string>>> ListOfFiles; // vetor contendo file por file
 
     do
     {
@@ -27,15 +28,29 @@ int main()
         {
             string filename;
             cout << "1. Open a File" << endl
-                 << "Digite o nome do arquivo que deseja abrir: " << endl;
+                 << "Enter a file to open: " << endl;
             cin >> filename;
+
             open_file(filename, liststrings);
+
+            file.first = filename;
+            file.second = liststrings;
+
+            ListOfFiles.push_back(file);
+            liststrings.clear();
+
             continue;
         }
         if (option == 2)
         {
             cout << "2. Search for Substrings" << endl;
-            // search();
+            cout << "Enter a Substring to Search: " << endl;
+
+            string search;
+            cin >> search;
+
+            search_substring(ListOfFiles, search);
+
             continue;
         }
         if (option == 3)
@@ -53,13 +68,6 @@ int main()
         if (option == 5)
         {
             cout << "5. Show Statistics" << endl;
-
-            cout << "list:" << endl;
-            for (size_t i = 0; i < liststrings.size(); i++)
-            {
-                cout << "string " << i << " - " << liststrings.at(i) << endl;
-            }
-
             statistics();
             continue;
         }
@@ -99,7 +107,6 @@ size_t menu()
 size_t open_file(string filename, vector<string> &liststrings)
 {
     ifstream infile(filename); // abre o arquivo em questão para pegar as strings
-    infile.open(filename);
 
     vector<string> newfile;
 
@@ -113,9 +120,9 @@ size_t open_file(string filename, vector<string> &liststrings)
             {
                 string element;
                 ss_line >> element;
-                if (element == " ")
+                if (element.size() == 0)
                 {
-                    cin.ignore();
+                    // retira os espaços vazios
                 }
                 else
                 {
@@ -129,10 +136,29 @@ size_t open_file(string filename, vector<string> &liststrings)
     return 0;
 }
 
-size_t search()
+size_t search_substring(vector<pair<string, vector<string>>> &ListOfFiles, string search)
 {
+    bool find = false; // variável que avisa se alguma substring foi encontrada
+
+    for (size_t i = 0; i < ListOfFiles.size(); i++)
+    {
+        for (size_t j = 0; j < ListOfFiles.at(i).second.size(); j++)
+        {
+            if (ListOfFiles.at(i).second.at(j).find(search) != string::npos)
+            {
+                find = true;
+                cout << ListOfFiles.at(i).first << " has substring " << ListOfFiles.at(i).second.at(j) << endl;
+            }
+        }
+    }
+
+    if (find == false)
+    {
+        cout << "Substring not found" << endl;
+    }
     return 0;
 }
+
 size_t remove()
 {
     return 0;
