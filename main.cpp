@@ -90,7 +90,7 @@ int main()
         if (option == 7)
         {
             cout << "7. Print strings" << endl;
-            // printStrings(ListOfFiles);
+            printStrings(ListOfFiles);
             continue;
         }
         if (option == 8)
@@ -269,7 +269,7 @@ size_t save_file(string OutFilename, vector<pair<string, vector<string>>> &ListO
         {
             if (ListOfFiles.at(i).second.at(j).length() != 0)
             {
-                OutFile << ListOfFiles.at(i).first << "  " << ListOfFiles.at(i).second.at(j) << endl;
+                OutFile << ListOfFiles.at(i).second.at(j) << endl;
             }
         }
     }
