@@ -1,6 +1,6 @@
 Aqui temos um gerenciador de arquivos em disco, ele foi desenvolvido em C++ contendo entrada e saída em tela, vetores e strings, leitura e gravação de arquivos. Os arquivos possuem palavras (quantidade variada), sem espaços, separadas por quebra de linha, e podem ter a mesma palavra no mesmo arquivo e/ou em arquivos distintos.
 
-Cada file disponíbilizado nesse repositório possui a letra de alguma música que eu gosto, mas sinta-se a vontade para criar novos files da forma que lhe for mais útil.
+Cada file disponíbilizado nesse repositório possui a letra de alguma música que eu gosto para fins de teste, mas sinta-se a vontade para criar novos files da forma que lhe for mais útil.
 
 **O gerenciador possui o seguinte menu:**
 
