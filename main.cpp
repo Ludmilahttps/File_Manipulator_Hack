@@ -90,7 +90,7 @@ int main()
         if (option == 7)
         {
             cout << "7. Print strings" << endl;
-            printStrings(ListOfFiles);
+            //printStrings(ListOfFiles);
             continue;
         }
         if (option == 8)
