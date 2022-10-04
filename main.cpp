@@ -224,10 +224,26 @@ void remove_duplicates_words(vector<pair<string, vector<string>>> &ListOfFiles)
     }
     else
     {
-        for (size_t i = 0; i < ListOfFiles.size(); i++)
+        for (size_t i = 0; i < ListOfFiles.size(); i++) // Percorre os files
         {
-            sort(ListOfFiles.at(i).second.begin(), ListOfFiles.at(i).second.end());
-            ListOfFiles.at(i).second.erase(unique(ListOfFiles.at(i).second.begin(), ListOfFiles.at(i).second.end()), ListOfFiles.at(i).second.end());
+            for (size_t j = 0; j < ListOfFiles.at(i).second.size(); j++) // Verifica a palavra a ser verificada(se é repitida)
+            {
+                for (size_t k = 0; k < ListOfFiles.size(); k++)
+                {
+                    for (size_t l = 0; l < ListOfFiles.at(k).second.size(); l++)
+                    {
+                        if (k == i && j == l)
+                        {
+                            // Pega uma palavra e compara ela com as outras
+                        }
+                        else if (ListOfFiles.at(k).second.at(l) == ListOfFiles.at(i).second.at(j))
+                        {
+                            cout << "Removido:" << ListOfFiles.at(k).first << " -> " << ListOfFiles.at(k).second.at(l) << " Pq e igual a " << ListOfFiles.at(i).first << ListOfFiles.at(i).second.at(j) << endl;
+                            ListOfFiles.at(k).second.at(l).erase();
+                        }
+                    }
+                }
+            }
         }
     }
 }
